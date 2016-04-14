@@ -1,1 +1,1 @@
-autopep8 -i -a -a -r .
+autopep8 -i -a -a -r -d .
