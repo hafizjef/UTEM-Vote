@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/static/css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab|Montserrat|Anton' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" rel="stylesheet">
+
+    {% if title %}
+    <title>{{ title }} - UTeM Vote</title>
+    {% else %}
+    <title>UTeM Vote</title>
+    {% endif %}
+
+    {% from "macros.html" import nav_link with context %}
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container" style="font-family: 'Roboto Slab'">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/" style="font-family: Anton;"><i class="fa fa-bar-chart fa-lg" aria-hidden="true"></i> UTeM VOTE</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            {{ nav_link('index', 'Home') }}
+            {{ nav_link('vote', 'Vote') }}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {{ nav_link('login', 'Admin Login') }}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    {% block headerimg %}{% endblock %}
+  </head>
+  
+  <body style="padding-top: 50px">
+    <div class="container">
+      <div style="font-family: 'Roboto Slab'">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }} </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+      </div>
+    </div> <!-- container -->
+   
+	<footer class="footer">
+		<div class="container">
+      <p class="text-muted" style="float: left" id="connected">Test</p>
+			<p class="text-muted" style="float: right">Powered by <a href="https://python.org">Python</a> &amp; <i class="fa fa-heart" aria-hidden="true"></i>
+ Copyright 2016</p>
+		</div>
+	</footer>
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    	$("[data-toggle='tooltip']").tooltip();
+    </script>
+
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var url = "http://" + document.domain + ":" + location.port;
+            var socket = io.connect(url + "/dd");
+            socket.on('msg', function(msg) {
+                $("#connected").html(msg.count);
+            });
+        });
+    </script>
+
+  </body>
+</html>
