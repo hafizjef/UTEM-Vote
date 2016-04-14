@@ -12,8 +12,16 @@ ccc = 0
 @app.route('/')
 @app.route('/index')
 def index():
-    sdata = {'name': campaign, 'voting': voteEnable, 'time': datetime.now()}
-    return render_template("index.html", title='Home', posts=sdata)
+    if (voteEnable):
+        sdata = {
+                    'name': campaign,
+                    'voting': voteEnable,
+                    'time': datetime.now()
+                }
+        return render_template("index.html", title='Home', posts=sdata)
+    else:
+        sdata = {'name': None, 'voting': voteEnable, 'time': datetime.now()}
+        return render_template("index.html", title='Home', posts=sdata)
 
 
 @app.route('/login', methods=['GET', 'POST'])

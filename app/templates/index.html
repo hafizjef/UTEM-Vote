@@ -10,29 +10,48 @@
 		<h3 style="font-family: Montserrat">Welcome To UTeM Voting System</h3><hr>
 		<p style="text-indent: 30px">Welcome to UTeM SMS based voting system, simplifying your voting process using short message service. <strong>SMS charge may vary depending on your service provider</strong>
 	</div>
+	<div class="hidden visible-sm visible-xs">
+		<br>
+		<div class="text-center"><i class="fa fa-flash fa-lg" aria-hidden="true"></i></div>
+		<br><br>
+	</div>
 	<div class="col-md-6">
 		<div class="panel panel-info">
 		<div class="panel-heading">
 	    	<h3 class="panel-title"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i> Server Status</h3>
 	  	</div>
 		<div class="panel-body">
-		    {% if (posts.voting == True) %}
-		    	<div class="alert alert-success" role="alert">
-		    		<strong><i class="fa fa-unlock" aria-hidden="true"></i> Info &bull;</strong> Voting is enabled
-		    	</div>
-		    	<span style="float: left; width: 126px">Campaign Name</span> <span><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> <strong>{{ posts.name }}</strong></span><br>
-		    	<span style="float: left; width: 126px">Server Time</span> <span><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> <code>{{ posts.time }}</code></span><br><br>
-		    	<a class="btn btn-success" data-toggle="tooltip" title="Cast your vote now!" href="/vote">Vote Now</i></a>
-		    {% else %}
+			{% if (posts.voting == True) %}
+			    <div class="alert alert-success" role="alert">
+			    	<strong><i class="fa fa-unlock" aria-hidden="true"></i> Info &bull;</strong> Voting is enabled
+			    </div>
+			{% else %}
 		    	<div class="alert alert-danger">
 		    		<strong><i class="fa fa-lock" aria-hidden="true"></i> Alert &bull;</strong> Voting is disabled
-		    	</div>
-		    	<span style="float: left; width: 126px">Campaign Name</span> <span><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> <strong>Null</strong></span><br>
-		    	<span style="float: left; width: 126px">Server Time</span> <span><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> <code>{{ posts.time }}</code></span><br><br>
-		    	<a class="btn btn-danger disabled" href="/vote">Vote Now</i></a>
+		    	</div> 
 		    {% endif %}
+				<div class="row">
+					<div class="col-md-4 col-xs-6">
+						<span>Campaign Name</span><br>
+						<span>Users Connected</span><br>
+						<span>Server Time</span><br>
+					</div>
+					<div class="col-md-8 col-xs-6">
+						<span><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> <strong>{{ posts.name }}</strong></span><br>
+						<span><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> <strong><span id="connected">0</span> Users</strong></span><br>
+						<span><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> <code>{{ posts.time }}</code></span><br><br>
+					</div>
+				</div>
+			<div>
+				{% if (posts.voting == True) %}
+					<a class="btn btn-success" data-toggle="tooltip" title="Cast your vote now!" href="/vote">Vote Now</i></a>
+				{% else %}
+					<a class="btn btn-danger disabled" href="/vote">Vote Now</i></a>
+				{% endif %}
+			</div>
+		</div>
 		</div>
 	</div>
-	</div>
 </div>
+
 {% endblock %}

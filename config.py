@@ -4,4 +4,4 @@ class Config(object):
 
 
 class DevConfig(Config):
-    DEBUG = False
+    DEBUG = True
