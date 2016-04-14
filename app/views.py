@@ -14,10 +14,10 @@ ccc = 0
 def index():
     if (voteEnable):
         sdata = {
-                    'name': campaign,
-                    'voting': voteEnable,
-                    'time': datetime.now()
-                }
+            'name': campaign,
+            'voting': voteEnable,
+            'time': datetime.now()
+        }
         return render_template("index.html", title='Home', posts=sdata)
     else:
         sdata = {'name': None, 'voting': voteEnable, 'time': datetime.now()}
