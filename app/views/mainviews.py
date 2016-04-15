@@ -1,12 +1,13 @@
 from flask import render_template, flash, redirect, session
-from app import app, socketio
+from app import app, db
 from .forms import LoginForm
 from datetime import datetime
 
 
+from app.models.appmodels import Admins
+
 voteEnable = True
 campaign = 'UTeM 2016'
-ccc = 0
 
 
 @app.route('/')
@@ -31,18 +32,5 @@ def login():
 
 @app.route('/vote')
 def vote():
-    return render_template('vote.html', title='Vote', vote=voteEnable)
-
-
-@socketio.on('connect', namespace='/dd')
-def test_connect():
-    global ccc
-    ccc += 1
-    socketio.emit('msg', {'data': 'Connected', 'count': ccc}, namespace='/dd')
-
-
-@socketio.on('disconnect', namespace='/dd')
-def test_disconnect():
-    global ccc
-    ccc -= 1
-    socketio.emit('msg', {'data': 'Connected', 'count': ccc}, namespace='/dd')
+    contestants = db.session.query(Admins).all()
+    return render_template('vote.html', title='Vote', vote=voteEnable, users=contestants)

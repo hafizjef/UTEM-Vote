@@ -42,3 +42,14 @@ body {
   padding-right: 15px;
   padding-left: 15px;
 }
+
+/* navbar */
+.sidebar-outer {
+    position: relative;
+}
+
+.fixed {
+    position: fixed;
+}
+
+

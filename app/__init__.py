@@ -14,4 +14,5 @@ db = SQLAlchemy(app)
 from app.models import appmodels
 
 from app.views import mainviews
+from app.views import events
 from app.api import endpoints

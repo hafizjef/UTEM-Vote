@@ -1,12 +1,13 @@
 class Config(object):
-    ''' Base Config '''
+    """Base Config"""
     DEBUG = False
     TESTING = False
 
-    ''' SQLAlchemy Config '''
+    """SQLAlchemy Config"""
     SQLALCHEMY_DATABASE_URI = 'sqlite:///engine.db'
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+
 
 class DevConfig(Config):
     DEBUG = True

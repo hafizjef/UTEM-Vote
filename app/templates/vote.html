@@ -1,6 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
-	{% if (vote == True) %}
-		<p>True</p>
+	<div style="margin-top: 20px">
+		{% if (vote == True) %}
+		<div class="row">
+			<div class="col-md-8 col-sm-8 col-xs-12">
+				{% for user in users %}
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							User Here
+						</div>
+						<div class="panel-body">
+							{{ user.username }} | {{ user.password }}
+						</div>
+					</div> 
+				{% endfor %}
+			</div>
+			<div class="col-md-4 col-sm-4 sidebar-outer">
+				<div class="fixed col-md-4 col-sm-4 hidden-xs">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							How to vote
+						</div>
+						<div class="panel-body">
+							{{ self.username }} | {{ self.password }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-center hidden visible-xs" style="margin-bottom: 40px">
+			<a class="btn btn-primary btn-block" href="#">Cast Vote</a>
+		</div>
 	{% endif %}
+	</div>
 {% endblock %}
