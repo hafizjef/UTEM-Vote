@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block headerimg %}
 	<div class="container-fluid" style="background-color: #22313F; height: 300px">
-    	<img src="/static/img/iphone-hand.png" class="center-block" style="height: 285px; margin-top: 15px">
-    </div>
+		<img src="/static/img/iphone-hand.png" class="center-block" style="height: 285px; margin-top: 15px">
+	</div>
 {% endblock %}
 {% block content %}
 <div class="row" style="margin-top: 25px">
@@ -18,18 +18,18 @@
 	<div class="col-md-6">
 		<div class="panel panel-info">
 		<div class="panel-heading">
-	    	<h3 class="panel-title"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i> Server Status</h3>
-	  	</div>
+			<h3 class="panel-title"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i> Server Status</h3>
+		</div>
 		<div class="panel-body">
 			{% if (posts.voting == True) %}
-			    <div class="alert alert-success" role="alert">
-			    	<strong><i class="fa fa-unlock" aria-hidden="true"></i> Info &bull;</strong> Voting is enabled
-			    </div>
+				<div class="alert alert-success" role="alert">
+					<strong><i class="fa fa-unlock" aria-hidden="true"></i> Info &bull;</strong> Voting is enabled
+				</div>
 			{% else %}
-		    	<div class="alert alert-danger">
-		    		<strong><i class="fa fa-lock" aria-hidden="true"></i> Alert &bull;</strong> Voting is disabled
-		    	</div> 
-		    {% endif %}
+				<div class="alert alert-danger">
+					<strong><i class="fa fa-lock" aria-hidden="true"></i> Alert &bull;</strong> Voting is disabled
+				</div> 
+			{% endif %}
 				<div class="row">
 					<div class="col-md-4 col-xs-6">
 						<span>Campaign Name</span><br>
