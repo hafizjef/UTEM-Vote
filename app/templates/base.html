@@ -50,13 +50,13 @@
     <div class="container">
       <div style="font-family: 'Roboto Slab'">
         {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <ul>
-            {% for message in messages %}
-              <li>{{ message }} </li>
-            {% endfor %}
-          </ul>
-        {% endif %}
+          {% if messages %}
+            <ul>
+              {% for message in messages %}
+                <li>{{ message }} </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
       </div>
@@ -70,16 +70,20 @@
 	</footer>
 
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/static/js/bootstrap.min.js"></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- Enable tooltip.js -->
     <script type="text/javascript">
     	$("[data-toggle='tooltip']").tooltip();
     </script>
 
+    <!-- SocketIO -->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
+    <!-- SocketIO users count -->
     <script type="text/javascript">
         $(document).ready(function() {
             var url = "http://" + document.domain + ":" + location.port;

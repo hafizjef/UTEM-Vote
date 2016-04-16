@@ -7,7 +7,7 @@
 				{% for user in users %}
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							User Here
+							User Here <span style="float: right;">Vote user {{ loop.index }}</span>
 						</div>
 						<div class="panel-body">
 							{{ user.username }} | {{ user.password }}
