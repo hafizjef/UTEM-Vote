@@ -10,6 +10,7 @@ class Config(object):
 
 
 class DevConfig(Config):
+    SECRET_KEY = 'soSecret'
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///engine.db'
     SQLALCHEMY_ECHO = False
