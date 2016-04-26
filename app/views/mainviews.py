@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, session
+from flask import render_template, flash, redirect, session, url_for
 from app import app, db
 from .forms import LoginForm
 from datetime import datetime
@@ -6,7 +6,7 @@ from datetime import datetime
 
 from app.models.appmodels import Admins
 
-voteEnable = True
+voteEnable = False
 campaign = 'UTeM 2016'
 
 
@@ -34,3 +34,16 @@ def login():
 def vote():
     contestants = db.session.query(Admins).all()
     return render_template('vote.html', title='Vote', vote=voteEnable, users=contestants)
+
+@app.route('/disable')
+def disableVote():
+    global voteEnable
+    voteEnable = False
+    return redirect(url_for('index'))
+
+@app.route('/enable')
+def enableVote():
+    global voteEnable
+    voteEnable = True
+    flash('Voting is enabled!')
+    return redirect(url_for('index'))
