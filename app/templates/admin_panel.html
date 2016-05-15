@@ -1,0 +1,48 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+	<link href="/static/css/center-txt-btn.css" rel="stylesheet" media="screen">
+
+	<div style="margin-top: 20px">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				System Status
+			</div>
+			<div class="panel-body">
+				<div class="inside clearfix">
+					<p class="pull-left">
+					<span style="float: left; width: 10em; font-weight: bolder;">Voting Status</span><span style="float: left; width: 1em; font-weight: bolder;">:</span> 
+					{% if (voteStatus == True) %} 
+						Enabled </p>
+						<span class="pull-right">
+							<a class="btn btn-danger custom-btn" href="/disable">Disable Voting</a>
+						</span>
+					{% else %} 
+						Disabled </p>
+						<span class="pull-right">
+							<a class="btn btn-success custom-btn" href="/enable">Enable Voting</a>
+						</span>
+					{% endif %}
+				</div>
+				<div class="inside clearfix" style="margin-top: 8px">
+					<p class="pull-left">
+						<span style="float: left; width: 10em; font-weight: bolder;">Campaign Name</span><span style="float: left; width: 1em; font-weight: bolder;">:</span>{{ campaign }}
+					</p>
+					<span class="pull-right">
+							<a class="btn btn-primary custom-btn" href="#">Change</a>
+					</span>
+				</div>
+			</div>	
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				User Management
+			</div>
+			<div class="panel-body">
+				Current User :
+			</div>
+		</div>
+	</div>
+{% endblock %}

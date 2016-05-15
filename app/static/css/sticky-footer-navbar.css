@@ -60,7 +60,7 @@ body {
   align-items: center;
 }
 
-.alerts {
+/*.alerts {
   position: absolute;
   max-width: 40%;
   top: 30px;
@@ -68,3 +68,30 @@ body {
   right: 40px;
 }
 
+/* Alerts */
+
+.modal.fade .modal-dialog {
+    transform: translate(0px, -25%);
+    transition: transform 0.3s ease-out 0s;
+}
+.modal.fade.in .modal-dialog {
+    transform: translate(0px, 0px);
+}
+
+.flyover {
+   left: 150%;
+   overflow: hidden;
+   position: fixed;
+   width: 50%;
+   opacity: 0.9;
+   z-index: 1050;
+   transition: left 0.6s ease-out 0s;
+}
+
+.flyover-bottom {
+   top: 60px;
+}
+
+.flyover.in {
+   left: 70%;
+}

@@ -4,14 +4,13 @@ from .forms import LoginForm
 from datetime import datetime
 
 
-from app.models.appmodels import Admins
+from app.models.appmodels import Admins, Candidate
 
 voteEnable = False
 campaign = 'UTeM 2016'
 
 
 @app.route('/')
-@app.route('/index')
 def index():
     if (voteEnable):
         sdata = {
@@ -27,23 +26,30 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html', title='Sign In')
+    return render_template('login.html', title='Admin Login')
 
 
 @app.route('/vote')
 def vote():
-    contestants = db.session.query(Admins).all()
-    return render_template('vote.html', title='Vote', vote=voteEnable, users=contestants)
+    candidates = db.session.query(Candidate).all()
+    return render_template('vote.html', title='Vote', vote=voteEnable, users=candidates)
 
 @app.route('/disable')
 def disableVote():
     global voteEnable
     voteEnable = False
+    flash('Voting is disabled')
     return redirect(url_for('index'))
 
 @app.route('/enable')
 def enableVote():
     global voteEnable
     voteEnable = True
-    flash('Voting is enabled!')
+    flash('Voting is enabled')
     return redirect(url_for('index'))
+
+@app.route('/admin')
+def adminPanel():
+    global voteEnable
+    global campaign
+    return render_template('admin_panel.html', title='Admin Panel', voteStatus=voteEnable, campaign=campaign)

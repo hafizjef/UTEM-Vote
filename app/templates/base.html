@@ -13,7 +13,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" rel="stylesheet">
 
     {% if title %}
-    <title>{{ title }} - UTeM Vote</title>
+    <title>{{ title }} - Universiti Teknikal Melaka</title>
     {% else %}
     <title>UTeM Vote</title>
     {% endif %}
@@ -43,17 +43,15 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-    <div class="alerts" style="padding-top: 40px">
-       {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <ul>
-              {% for message in messages %}
-                <div class="alert alert-warning">{{ message }}</div>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
-    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div id="message1" class="alert alert-danger alert-dismissible flyover flyover-bottom fade">
+              <strong>Alert!</strong> {{ message }}
+            </div>  
+          {% endfor %}
+        {% endif %}
+    {% endwith %}
     {% block headerimg %}{% endblock %}
   </head>
   <body style="padding-top: 50px">
@@ -93,6 +91,8 @@
                 $("#connected").html(msg.count);
             });
         });
+        $('#message1').toggleClass('in');
+        window.setTimeout(function() { $("#message1").alert('close'); }, 4000);
     </script>
 
   </body>

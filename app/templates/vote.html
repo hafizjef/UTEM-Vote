@@ -1,36 +1,62 @@
 {% extends "base.html" %}
 {% block content %}
-	<div style="margin-top: 20px">
-		{% if (vote == True) %}
-		<div class="row">
-			<div class="col-md-8 col-sm-8 col-xs-12">
-				{% for user in users %}
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							User Here <span style="float: right;">Vote user {{ loop.index }}</span>
-						</div>
-						<div class="panel-body">
-							{{ user.username }} | {{ user.password }}
-						</div>
-					</div> 
-				{% endfor %}
-			</div>
-			<div class="col-md-4 col-sm-4 sidebar-outer">
-				<div class="fixed col-md-4 col-sm-4 hidden-xs">
-					<div class="panel panel-info">
-						<div class="panel-heading">
-							How to vote
-						</div>
-						<div class="panel-body">
-							{{ self.username }} | {{ self.password }}
+	{% if (vote == True) %}
+		<div style="margin-top: 20px">
+			<div class="row">
+				<div class="col-md-8 col-sm-8 col-xs-12">
+					{% for user in users %}
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								{{ user.position }} <span style="float: right;">Vote user {{ loop.index }}</span>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="text-center col-lg-2 col-md-3 col-sm-3 col-xs-4">
+										<img src="/static/usr/{{ user.image }}" onerror="this.src='/static/usr/thumbnail.png';" class="img-thumbnail img-responsive" style="width: 100px; overflow: hidden;">
+									</div>
+									<div class="col-lg-10 col-md-9 col-sm-9 col-xs-8">
+										<span style="font-size: 22px"><strong>{{ user.name }}</strong></span>
+										<hr style="margin-top: 2px; margin-bottom: 4px;  padding-top: 2px; padding-bottom: 4px">
+										<span style="padding-top: 2px">
+											<span style="float: left; width: 90px; font-weight: bold">Student ID</span><span style="float: left; width: 1em; font-weight: bold"> : </span>{{ user.studentId }}<br>
+											<span style="float: left; width: 90px; font-weight: bold">Faculty</span><span style="float: left; width: 1em; font-weight: bold"> : </span>{{ user.faculty }}<br>
+											<span style="float: left; width: 90px; font-weight: bold">Semester</span><span style="float: left; width: 1em; font-weight: bold"> : </span>{{ user.semester }}<br>
+											<span style="float: left; width: 90px; font-weight: bold">Year</span><span style="float: left; width: 1em; font-weight: bold"> : </span>{{ user.year }}<br>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div> 
+					{% endfor %}
+				</div>
+				<div class="col-md-4 col-sm-4 sidebar-outer">
+					<div class="fixed col-md-4 col-sm-4 hidden-xs">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								How to vote
+							</div>
+							<div class="panel-body">
+								{{ self.username }} | {{ self.password }}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="text-center hidden visible-xs" style="margin-bottom: 40px">
+				<a class="btn btn-primary btn-block" href="#">Cast Vote</a>
+			</div>
 		</div>
-		<div class="text-center hidden visible-xs" style="margin-bottom: 40px">
-			<a class="btn btn-primary btn-block" href="#">Cast Vote</a>
+	{% else %}
+		<div style="margin-top: 20px;">
+			<div class="vertical-center">
+				<div class="container">
+					<div class="text-center" style="font-size: 45px">
+						<i class="fa fa-spin fa-fw fa-refresh fa-3x" aria-hidden="true"></i><br>
+						<span style="font-size: 22px">Voting is currently disabled</span><br>
+						<a class="btn btn-primary visible-lg-inline visible-md-inline visible-sm-inline visible-xs-block" href="/"><i class="fa fa-home fa-lg" aria-hidden="true"> Home</i></a>
+					</div>
+				</div>
+			</div>
 		</div>
 	{% endif %}
-	</div>
 {% endblock %}
