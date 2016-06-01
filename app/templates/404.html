@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/static/css/sticky-footer-navbar.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab|Montserrat|Anton' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" rel="stylesheet">
+
+    {% if title %}
+    <title>{{ title }} - Universiti Teknikal Melaka</title>
+    {% else %}
+    <title>UTeM Vote</title>
+    {% endif %}
+</head>
+<body style="background-color: #333333">
+	<div class="vertical-center">
+		<div class="container">
+			<div class="text-center">
+				<span style="font-size: 60px; font-family: Anton; color: #fff">ERROR!</span><br>
+				<span style="font-size: 140px; font-family: Anton; color: #FF5555;">404</span><br>
+				<span style="font-family: Montserrat; color: #fff; font-style: italic;">Unfortunately, the page you're looking for are not found</span>
+			</div>
+		</div>
+	</div>
+	<div class="text-center">
+		<a class="btn btn-primary" href="/">Back To Home</a>
+	</div>
+</body>
+</html>

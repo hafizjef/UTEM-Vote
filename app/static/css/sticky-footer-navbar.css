@@ -95,3 +95,13 @@ body {
 .flyover.in {
    left: 70%;
 }
+
+/* table */
+
+.table tbody>tr>th.vert-align{
+    vertical-align: middle;
+}
+
+.table tbody>tr>td.vert-align{
+    vertical-align: middle;
+}

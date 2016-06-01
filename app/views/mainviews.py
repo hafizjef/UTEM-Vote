@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, session, url_for
+from flask import render_template, flash, redirect, session, url_for, request
 from app import app, db
 from .forms import LoginForm
 from datetime import datetime
@@ -9,6 +9,10 @@ from app.models.appmodels import Admins, Candidate
 voteEnable = False
 campaign = 'UTeM 2016'
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html', title='Page Not Found'), 404
 
 @app.route('/')
 def index():
@@ -52,4 +56,22 @@ def enableVote():
 def adminPanel():
     global voteEnable
     global campaign
-    return render_template('admin_panel.html', title='Admin Panel', voteStatus=voteEnable, campaign=campaign)
+    candidates = db.session.query(Candidate).all()
+
+    return render_template('admin_panel.html', title='Admin Panel', voteStatus=voteEnable, campaign=campaign, users=candidates)
+
+@app.route('/updatecamp', methods=['POST'])
+def updateCampaign():
+    global campaign
+    campaign = request.form['campaignName']
+    flash('Campaign Name changed succesfully')
+    return redirect(url_for('adminPanel'))
+
+@app.route('/delcandidate', methods=['POST'])
+def deleteCandidate():
+    userid = request.form['userid']
+    name = Candidate.query.filter(Candidate.id==userid).all()
+    Candidate.query.filter(Candidate.id==userid).delete()
+    flash('User ' + str(name[0]) + ' deleted!')
+    db.session.commit()
+    return redirect(url_for('adminPanel'))
