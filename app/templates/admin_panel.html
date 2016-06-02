@@ -29,7 +29,7 @@
 					<p class="pull-left">
 						<form class="form-inline" method="post" action="/updatecamp">
 							<label for="campaignName">Campaign Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;</label>
-							<input type="text" class="form-control" name="campaignName" value="{{ campaign }}">
+							<input type="text" class="form-control" name="campaignName" value="{{ campaign }}" required="1">
 						<span class="pull-right">
 							 <button type="submit" class="btn btn-success custom-btn">Change</button>
 						</span>
@@ -77,7 +77,7 @@
 							<div class="form-group">
 								<div class="btn-group">
 
-									<a class="btn btn-success btn-sm" href="javascript:window.open('/user/{{ user.id }}','Popup', 'location=1, width=800, height=640');"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+									<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editUserModal{{ loop.index0 }}"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 
 									<input type="hidden" name="userid" value="{{ user.id }}">
 									<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
@@ -110,7 +110,14 @@
       		<div class="form-group">
       			<label for="name" class="col-lg-4 control-label">Candidate Name</label>
       			<div class="col-lg-8">
-      				<input type="text" class="form-control" id="name" placeholder="Name" required="1">
+      				<input type="text" class="form-control" id="name" name="name" placeholder="Name" required="1">
+      			</div>
+    			
+      		</div>
+      		<div class="form-group">
+      			<label for="userid" class="col-lg-4 control-label">Candidate Matric No</label>
+      			<div class="col-lg-8">
+      				<input type="text" class="form-control" id="userid" name="userid" placeholder="Matric Number" required="1">
       			</div>
     			
       		</div>
@@ -118,9 +125,9 @@
       			<label for="faculty" class="col-lg-4 control-label">Candidate Faculty</label>
       			<div class="col-lg-8">
       				<select class="form-control" id="faculty" name="faculty">
-  					<option value="Pengerusi">FTMK</option>
-					<option value="Bendahari">FKEKK</option>
-					<option value="Setiausaha">FKP</option>
+  					<option value="FTMK">FTMK</option>
+					<option value="FKEKK">FKEKK</option>
+					<option value="FKP">FKP</option>
 					</select>
       			</div>
       		</div>
@@ -156,12 +163,93 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Add Candidate</button>
         </form>
       </div>
     </div>
   </div>
 </div>
 
+
+
+{% for user in users %}
+<!-- user edit modal -->
+<div class="modal fade" id="editUserModal{{ loop.index0 }}" tabindex="-1" role="dialog" aria-labelledby="editUser">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Candidate</h4>
+      </div>
+      <div class="modal-body">
+      	<form class="form-horizontal" action="/editcandidate" method="post">
+      		<div class="form-group">
+      			<label for="id" class="col-lg-4 control-label">Candidate ID</label>
+      			<div class="col-lg-8">
+      				<input type="text" class="form-control" id="id" name="id" required="1" value="{{ users[loop.index0].id }}" readonly>
+      			</div>
+      		</div>
+      		<div class="form-group">
+      			<label for="name" class="col-lg-4 control-label">Candidate Name</label>
+      			<div class="col-lg-8">
+      				<input type="text" class="form-control" id="name" name="name" placeholder="Name" required="1" value="{{ users[loop.index0].name }}">
+      			</div>
+      		</div>
+      		<div class="form-group">
+      			<label for="userid" class="col-lg-4 control-label">Candidate Matric No</label>
+      			<div class="col-lg-8">
+      				<input type="text" class="form-control" id="userid" name="userid" placeholder="Matric Number" required="1" value="{{ users[loop.index0].studentId }}">
+      			</div>
+    			
+      		</div>
+      		<div class="form-group">
+      			<label for="faculty" class="col-lg-4 control-label">Candidate Faculty</label>
+      			<div class="col-lg-8">
+      				<select class="form-control" id="faculty" name="faculty">
+  					<option value="FTMK" {% if (users[loop.index0].faculty)=='FTMK' %} selected {% endif %}>FTMK</option>
+					<option value="FKEKK" {% if (users[loop.index0].faculty)=='FKEKK' %} selected {% endif %}>FKEKK</option>
+					<option value="FKP" {% if (users[loop.index0].faculty)=='FKP' %} selected {% endif %}>FKP</option>
+					</select>
+      			</div>
+      		</div>
+      		<div class="form-group">
+      			<label for="position" class="col-lg-4 control-label">Candidate Position</label>
+      			<div class="col-lg-8">
+      				<select class="form-control" id="position" name="position">
+  					<option value="Pengerusi" {% if (users[loop.index0].position)=='Pengerusi' %} selected {% endif %}>Pengerusi</option>
+					<option value="Bendahari" {% if (users[loop.index0].position)=='Bendahari' %} selected {% endif %}>Bendahari</option>
+					<option value="Setiausaha" {% if (users[loop.index0].position)=='Setiausaha' %} selected {% endif %}>Setiausaha</option>
+					</select>
+      			</div>
+      		</div>
+      		<div class="form-group">
+      			<label for="year" class="col-lg-4 control-label">Candidate Year</label>
+      			<div class="col-lg-8">
+      				<input type="number" class="form-control" id="year" name="year" placeholder="Candidate Year" required="1" value="{{ users[loop.index0].year }}">
+      			</div>
+      		</div>
+      		<div class="form-group">
+      			<label for="semester" class="col-lg-4 control-label">Candidate Semester</label>
+      			<div class="col-lg-8">
+      				<input type="number" class="form-control" id="semester" name="semester" placeholder="Candidate Semester" required="1" value="{{ users[loop.index0].year }}">
+      			</div>
+      		</div>
+      		<div class="form-group">
+    			<label for="candidatePicture" class="col-lg-4 control-label">Candidate Photo</label>
+    			<div class="col-lg-8">
+    				<input type="file" id="candidatePicture">
+    				<p class="help-block">Please use suitable sized image.</p>
+    			</div>
+  			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 
 {% endblock %}

@@ -57,7 +57,7 @@
 													<span style="font-size: 22px"><strong>{{ user.name }}</strong></span>
 													<span style="float: right; margin-top: 8px">
 													<div class="radio-inline">
-														<label><input type="radio" name="{{ user.position }}" value="{{ loop.index }}"  onClick="setP1('{{ loop.index }}')">Vote This</label>
+														<label><input type="radio" name="{{ user.position }}" value="{{ user.electionCode }}"  onClick="setP1('{{ user.electionCode }}')">Vote This</label>
 													</div>
 													</span>
 													<hr style="margin-top: 2px; margin-bottom: 4px;  padding-top: 2px; padding-bottom: 4px">

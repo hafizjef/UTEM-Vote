@@ -10,7 +10,7 @@ db.drop_all()
 db.create_all()
 
 db.session.add(Admins('Admin', 'hashed.password', 'admin@website.com'))
-db.session.add(Candidate('Abdullah', 'B031510410', 'FTMK', 3, 2, 'Bendahari'))
+#db.session.add(Candidate('Abdullah', 'B031510410', 'FTMK', 3, 2, 'Bendahari'))
 db.session.add(Vote(1, datetime.now()))
 
 db.session.commit()

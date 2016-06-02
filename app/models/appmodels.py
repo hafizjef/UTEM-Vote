@@ -27,16 +27,18 @@ class Candidate(db.Model):
     year = db.Column(db.Integer)
     semester = db.Column(db.Integer)
     position = db.Column(db.String)
-    electionCode = db.Column(db.Integer)
+    electionCode = db.Column(db.String)
     count = db.Column(db.Integer)
 
-    def __init__(self, name, studentId, faculty, year, semester, position):
+    def __init__(self, name, studentId, faculty, year, semester, position, electionCode, count):
         self.name = name
         self.studentId = studentId
         self.faculty = faculty
         self.year = year
         self.semester = semester
         self.position = position
+        self.electionCode = electionCode
+        self.count = count
 
     def __repr__(self):
         return self.name
