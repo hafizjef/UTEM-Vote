@@ -38,7 +38,12 @@
             {{ nav_link('vote', 'Vote') }}
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            {{ nav_link('login', 'Admin Login') }}
+            {% if g.user.is_authenticated %}
+              {{ nav_link('adminPanel', 'Control Panel') }}
+              {{ nav_link('logout', 'Log out') }}
+            {% else %}
+              {{ nav_link('login', 'Admin Login') }}  
+            {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -54,7 +59,7 @@
     {% endwith %}
     {% block headerimg %}{% endblock %}
   </head>
-  <body style="padding-top: 50px">
+  <body style="padding-top: 50px; background-color: #EEE">
     <div class="container">
       <div style="font-family: 'Roboto Slab'">
         {% block content %}{% endblock %}

@@ -7,19 +7,18 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">Pengerusi</div>
 							<br>
-							<hr style="margin-top: 6px; margin-bottom: 2px;  padding-top: 6px; padding-bottom: 2px; border-color: #bce8f1;">
 								{% for user in users %}
 									{% if (user.position=='Pengerusi') %}
-										<div class="panel-body">
+									<div class="panel-body">
 											<div class="row">
 												<div class="text-center col-lg-2 col-md-3 col-sm-3 col-xs-4">
-													<img src="/static/usr/{{ user.image }}" onerror="this.src='/static/usr/thumbnail.png';" class="img-thumbnail img-responsive" style="width: 100px; overflow: hidden;">
+													<img src="/static/usr/Image/{{ user.studentId }}.jpg" onerror="this.src='/static/usr/thumbnail.png';" class="img-thumbnail img-responsive" style="width: 100px; overflow: hidden;">
 												</div>
 												<div class="col-lg-10 col-md-9 col-sm-9 col-xs-8">
 													<span style="font-size: 22px"><strong>{{ user.name }}</strong></span>
 													<span style="float: right; margin-top: 8px">
 													<div class="radio-inline">
-														<label><input type="radio" name="{{ user.position }}" value="{{ loop.index }}">Vote This</label>
+														<label><input type="radio" name="{{ user.position }}" onClick="setP1('{{ user.electionCode }}')">Vote This</label>
 													</div>
 													</span>
 													<hr style="margin-top: 2px; margin-bottom: 4px;  padding-top: 2px; padding-bottom: 4px">
@@ -32,32 +31,27 @@
 												</div>
 											</div>
 										</div>
-										<hr style="margin-top: 2px; margin-bottom: 2px; padding-top: 2px; padding-bottom: 2px; border-color: #bce8f1;">
 									{% endif %}
 								{% endfor %}
 							<br>
 						</div>
 
-						<div class="text-center" style="padding-bottom: 20px">
-							<i class="fa fa-arrow-circle-down fa-2x" aria-hidden="true"></i>
-						</div>
-
+						<!-- Split -->
 						<div class="panel panel-info">
 						<div class="panel-heading">Bendahari</div>
 							<br>
-							<hr style="margin-top: 6px; margin-bottom: 2px;  padding-top: 6px; padding-bottom: 2px; border-color: #bce8f1;">
 								{% for user in users %}
 									{% if (user.position=='Bendahari') %}
-										<div class="panel-body">
+									<div class="panel-body">
 											<div class="row">
 												<div class="text-center col-lg-2 col-md-3 col-sm-3 col-xs-4">
-													<img src="/static/usr/{{ user.image }}" onerror="this.src='/static/usr/thumbnail.png';" class="img-thumbnail img-responsive" style="width: 100px; overflow: hidden;">
+													<img src="/static/usr/Image/{{ user.studentId }}.jpg" onerror="this.src='/static/usr/thumbnail.png';" class="img-thumbnail img-responsive" style="width: 100px; overflow: hidden;">
 												</div>
 												<div class="col-lg-10 col-md-9 col-sm-9 col-xs-8">
 													<span style="font-size: 22px"><strong>{{ user.name }}</strong></span>
 													<span style="float: right; margin-top: 8px">
 													<div class="radio-inline">
-														<label><input type="radio" name="{{ user.position }}" value="{{ user.electionCode }}"  onClick="setP1('{{ user.electionCode }}')">Vote This</label>
+														<label><input type="radio" name="{{ user.position }}" value="{{ loop.index }}" onClick="setP2('{{ user.electionCode }}')">Vote This</label>
 													</div>
 													</span>
 													<hr style="margin-top: 2px; margin-bottom: 4px;  padding-top: 2px; padding-bottom: 4px">
@@ -70,11 +64,45 @@
 												</div>
 											</div>
 										</div>
-										<hr style="margin-top: 2px; margin-bottom: 2px; padding-top: 2px; padding-bottom: 2px; border-color: #bce8f1;">
 									{% endif %}
 								{% endfor %}
 							<br>
 						</div>
+
+						<!-- Split -->
+						<div class="panel panel-info">
+						<div class="panel-heading">Setiausaha</div>
+							<br>
+								{% for user in users %}
+									{% if (user.position=='Setiausaha') %}
+									<div class="panel-body">
+											<div class="row">
+												<div class="text-center col-lg-2 col-md-3 col-sm-3 col-xs-4">
+													<img src="/static/usr/Image/{{ user.studentId }}.jpg" onerror="this.src='/static/usr/thumbnail.png';" class="img-thumbnail img-responsive" style="width: 100px; overflow: hidden;">
+												</div>
+												<div class="col-lg-10 col-md-9 col-sm-9 col-xs-8">
+													<span style="font-size: 22px"><strong>{{ user.name }}</strong></span>
+													<span style="float: right; margin-top: 8px">
+													<div class="radio-inline">
+														<label><input type="radio" name="{{ user.position }}" value="{{ loop.index }}" onClick="setP3('{{ user.electionCode }}')">Vote This</label>
+													</div>
+													</span>
+													<hr style="margin-top: 2px; margin-bottom: 4px;  padding-top: 2px; padding-bottom: 4px">
+													<span style="padding-top: 2px">
+														<span style="float: left; width: 90px; font-weight: bold">Student ID</span><span style="float: left; width: 1em; font-weight: bold"> : </span>{{ user.studentId }}<br>
+														<span style="float: left; width: 90px; font-weight: bold">Faculty</span><span style="float: left; width: 1em; font-weight: bold"> : </span>{{ user.faculty }}<br>
+														<span style="float: left; width: 90px; font-weight: bold">Semester</span><span style="float: left; width: 1em; font-weight: bold"> : </span>{{ user.semester }}<br>
+														<span style="float: left; width: 90px; font-weight: bold">Year</span><span style="float: left; width: 1em; font-weight: bold"> : </span>{{ user.year }}<br>
+													</span>
+												</div>
+											</div>
+										</div>
+									{% endif %}
+								{% endfor %}
+							<br>
+						</div>
+
+
 				</div>
 				<div class="col-md-4 col-sm-4 sidebar-outer">
 					<div class="fixed col-md-4 col-sm-4 hidden-xs">
@@ -85,12 +113,22 @@
 							<div class="panel-body">
 								<ol>
 									<li>Select Candidate that you want to vote</li>
-									<li>Send <code>VOTE <span id="pg">00</span></code> to <code>28882</code></li>
+									<li>Send <code>VOTE &lt;YOUR VOTE CODE&gt;</code> to <code>28882</code></li>
 									<li>Wait for confirmation SMS</li>
 									<li>Your vote have been recorded</li>
 								</ol>
 							</div>
 						</div>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Vote Code
+							</div>
+							<div class="panel-body">
+								<span style="font-size: 25px; background-color: #f9f2f4; padding: 2px 6px; border-radius: 8px; color: #c7254e"><span id="pg">000</span>-<span id="bg">000</span>-<span id="sg">000</span></span>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -116,6 +154,16 @@
 	function setP1(setting) {
 	    myOption = setting;
 	    document.getElementById("pg").innerHTML = myOption;
+	}
+
+	function setP2(setting) {
+	    myOption = setting;
+	    document.getElementById("bg").innerHTML = myOption;
+	}
+
+	function setP3(setting) {
+	    myOption = setting;
+	    document.getElementById("sg").innerHTML = myOption;
 	}
 	</script>
 {% endblock %}

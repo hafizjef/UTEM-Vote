@@ -1,7 +1,9 @@
-from flask import render_template, flash, redirect, session, url_for, request
-from app import app, db
+from flask import Flask, session, request, flash, url_for, redirect, render_template, abort ,g
+from app import app, db, login_manager
 from .forms import LoginForm
 from datetime import datetime
+
+from flask.ext.login import login_user , logout_user , current_user , login_required
 
 from sqlalchemy import update
 from sqlalchemy.exc import IntegrityError
@@ -15,23 +17,56 @@ campaign = 'UTeM 2016'
 def page_not_found(e):
     return render_template('404.html', title='Page Not Found'), 404
 
+
+@login_manager.user_loader
+def load_user(id):
+    return Admins.query.get(int(id))
+
+@app.before_request
+def before_request():
+    g.user = current_user
+
 @app.route('/')
 def index():
+    format = "%a %d %b %Y %H:%M:%S"
+    timed = datetime.today().strftime(format)
     if (voteEnable):
         sdata = {
             'name': campaign,
             'voting': voteEnable,
-            'time': datetime.now()
+            'time': timed
         }
         return render_template("index.html", title='Home', posts=sdata)
     else:
-        sdata = {'name': None, 'voting': voteEnable, 'time': datetime.now()}
-        return render_template("index.html", title='Home', posts=sdata)
+        sdata = {'name': None, 'voting': voteEnable, 'time': timed}
+        return render_template('index.html', title='Home', posts=sdata)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login',methods=['GET','POST'])
 def login():
-    return render_template('login.html', title='Admin Login')
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            return redirect(url_for('adminPanel'))
+        else:
+            return render_template('login.html')
+ 
+    username = request.form['username']
+    password = request.form['password']
+    remember_me = False
+    if 'remember_me' in request.form:
+        remember_me = True
+    registered_user = Admins.query.filter_by(username=username,password=password).first()
+    if registered_user is None:
+        flash('Username or Password is invalid' , 'error')
+        return redirect(url_for('login'))
+    login_user(registered_user, remember = remember_me)
+    flash('Logged in successfully')
+    return redirect(request.args.get('next') or url_for('adminPanel'))
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index')) 
 
 
 @app.route('/vote')
@@ -40,6 +75,7 @@ def vote():
     return render_template('vote.html', title='Vote', vote=voteEnable, users=candidates)
 
 @app.route('/disable')
+@login_required
 def disableVote():
     global voteEnable
     voteEnable = False
@@ -47,6 +83,7 @@ def disableVote():
     return redirect(url_for('adminPanel'))
 
 @app.route('/enable')
+@login_required
 def enableVote():
     global voteEnable
     voteEnable = True
@@ -54,6 +91,7 @@ def enableVote():
     return redirect(url_for('adminPanel'))
 
 @app.route('/admin')
+@login_required
 def adminPanel():
     global voteEnable
     global campaign
@@ -101,6 +139,11 @@ def editCandidate():
     position = request.form['position']
     year = request.form['year']
     semester = request.form['semester']
+    count = request.form['count']
+
+    if (len(userid) != 10):
+        flash('Matric Number incorrect')
+        return redirect(url_for('adminPanel'))
 
     update = db.session.query(Candidate).get(uid)
     update.name = name
@@ -108,7 +151,8 @@ def editCandidate():
     update.faculty = faculty
     update.position = position
     update.year = year
-    update.semester
+    update.semester = semester
+    update.count = count
 
     db.session.commit()
     return redirect(url_for('adminPanel'))

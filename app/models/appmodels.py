@@ -16,12 +16,26 @@ class Admins(db.Model):
     def __repr__(self):
         return self.username
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
+
+    def __repr__(self):
+        return '<User %r>' % (self.username)
+
 
 class Candidate(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    image = db.Column(db.String, unique=True)
     studentId = db.Column(db.String(10), unique=True)
     faculty = db.Column(db.String(5), nullable=False)
     year = db.Column(db.Integer)
