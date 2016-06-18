@@ -36,6 +36,7 @@
           <ul class="nav navbar-nav">
             {{ nav_link('index', 'Home') }}
             {{ nav_link('vote', 'Vote') }}
+            {{ nav_link('viewResult', 'Results') }}
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if g.user.is_authenticated %}

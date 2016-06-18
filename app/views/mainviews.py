@@ -166,3 +166,8 @@ def deleteCandidate():
     flash('User ' + str(name[0]) + ' deleted!')
     db.session.commit()
     return redirect(url_for('adminPanel'))
+
+@app.route('/results')
+def viewResult():
+    candidates = db.session.query(Candidate).all()
+    return render_template('results.html', title='Results', voteStatus=voteEnable, users=candidates, campaign=campaign)
